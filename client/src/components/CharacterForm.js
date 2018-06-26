@@ -1,51 +1,55 @@
 import React, { Component } from 'react';
+// import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import Dropdown from 'react-dropdown';
 import DropdownMenu from './DropdownMenu';
-import 'react-dropdown/style.css';
+import { fetchRaces } from '../actions/CharacterBuilderActions';
+
 
   const races = ['Elf', 'Dwarf', 'Human']
   const subraces = ['Hill Dwarf', 'Mountain Dwarf']
   const classes = ['Barbarian', 'Bard','Cleric']
+  const backgrounds = ['Acolyte', 'Soldier', 'Urchin']
 
-export default class CharacterForm extends Component{
+class CharacterForm extends Component{
   constructor(props){
     super(props);
     this.state = {
-      race: '',
-      subrace: '',
-      class: ''
+      race: races[0],
+      subrace: subraces[0],
+      class: classes[0],
+      background: backgrounds[0]
     }
-    this._onSelect = this._onSelect.bind(this)
   }
 
-  _onSelect (option) {
-    console.log('You have selected ', option)
-    this.setState({selected: option})
+
+  // componentDidMount() {
+  //   this.props.onFetchRaces();
+  // }
+
+  handleOnChange = (event) => {
+    console.log("[CharacterForm] ", event.target.value)
+    this.setState({[event.target.name]: event.target.value})
   }
 
   render(){
-    const defaultOption = this.state.selected
-    // const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label
 
     return(
       <form>
-        {/*
-        <label>Race</label>
-        <Dropdown options={races} className="race" onChange={this._onSelect} value={defaultOption} name="race" placeholder="Select a race" />
-        <label>Subrace</label>
-        <Dropdown options={subraces} onChange={this._onSelect} value={defaultOption} name="subrace" placeholder="Select a subrace" />
-        <label>Class</label>
-        <Dropdown options={classes} onChange={this._onSelect} value={defaultOption} name="class" placeholder="Select a class" />
-        */}
-
-
-        <DropdownMenu options={races} name="Race" />
-        <DropdownMenu options={subraces} name="Subrace" />
-        <DropdownMenu options={classes} name="Class" />
+        <DropdownMenu options={races} onChange={event => this.handleOnChange(event)} name="race" />
+        <DropdownMenu options={subraces} onChange={event => this.handleOnChange(event)} name="subrace" />
+        <DropdownMenu options={classes} onChange={event => this.handleOnChange(event)} name="class" />
+        <DropdownMenu options={backgrounds} onChange={event => this.handleOnChange(event)} name="background" />
         <br />
-        <Button>Create</Button>
+        <Button>Next</Button>
       </form>
     )
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onFetchRaces: () => dispatch(fetchRaces())
+  }
+}
+
+export default CharacterForm

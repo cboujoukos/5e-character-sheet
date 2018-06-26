@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import toTitleCase from '../utils/toTitleCase';
 
 
 export default class DropdownMenu extends Component{
@@ -25,8 +26,8 @@ export default class DropdownMenu extends Component{
     )
     return(
       <div>
-        <label>{name}</label><br />
-        <select className="full-width" onChange={(event)=>this.handleOnChange(event)} display="block">
+        <label>{toTitleCase(name)}</label><br />
+        <select className="full-width" name={name} onChange={this.props.onChange} display="block">
           {renderDropdown}
         </select>
       </div>
