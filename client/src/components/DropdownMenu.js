@@ -8,7 +8,7 @@ export default class DropdownMenu extends Component{
 
     this.state = {
       options: this.props.options,
-      value: this.props.options[0]
+      // value: this.props.options[0]
     }
   }
 
@@ -19,10 +19,9 @@ export default class DropdownMenu extends Component{
   }
 
   render(){
-
     const { options, name } = this.props
     const renderDropdown = options.map((option, i) =>
-      <option key={i}>{option}</option>
+      <option key={i}>{option.name || option}</option>
     )
     return(
       <div>

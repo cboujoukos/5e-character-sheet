@@ -11,7 +11,6 @@ export function fetchRaces(){
       return rsp.json()
     })
     .then(rspJSON => {
-      debugger;
       return rspJSON.results
     })
     .then(races => dispatch({type: 'FETCH_RACES', payload: races}))

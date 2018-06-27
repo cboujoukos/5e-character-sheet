@@ -22,7 +22,7 @@ class CharacterForm extends Component{
   }
 
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.onFetchRaces();
   }
 
@@ -34,15 +34,25 @@ class CharacterForm extends Component{
   render(){
 
     return(
-      <form>
-        <DropdownMenu options={races} onChange={event => this.handleOnChange(event)} name="race" />
-        <DropdownMenu options={subraces} onChange={event => this.handleOnChange(event)} name="subrace" />
-        <DropdownMenu options={classes} onChange={event => this.handleOnChange(event)} name="class" />
-        <DropdownMenu options={backgrounds} onChange={event => this.handleOnChange(event)} name="background" />
-        <br />
-        <Button>Next</Button>
-      </form>
+      <div>
+        <form>
+          <DropdownMenu options={this.props.raceList} onChange={event => this.handleOnChange(event)} name="race" />
+          <DropdownMenu options={subraces} onChange={event => this.handleOnChange(event)} name="subrace" />
+          <DropdownMenu options={classes} onChange={event => this.handleOnChange(event)} name="class" />
+          <DropdownMenu options={backgrounds} onChange={event => this.handleOnChange(event)} name="background" />
+          <br />
+          <Button>Next</Button>
+        </form>
+
+      </div>
     )
+  }
+}
+
+const mapStateToProps = state => {
+
+  return {
+    raceList: state.characterBuilder.races
   }
 }
 
@@ -52,4 +62,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(CharacterForm)
+export default connect(mapStateToProps, mapDispatchToProps)(CharacterForm)
