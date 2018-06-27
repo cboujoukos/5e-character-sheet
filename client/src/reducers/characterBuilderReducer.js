@@ -9,7 +9,11 @@ export default (state={
     case 'LOADING':
       return Object.assign({},state, {loading: true});
     case 'FETCH_RACES':
-      return {loading: false, races: action.payload};
+      return Object.assign({}, state, {loading: false, races: action.payload});
+    case 'FETCH_CLASSES':
+      return Object.assign({}, state, {loading: false, classes: action.payload});
+    case 'FETCH_SUBRACES':
+      return Object.assign({}, state, {loading: false, subraces: action.payload});
     default:
       return state;
   }

@@ -21,7 +21,7 @@ export default class DropdownMenu extends Component{
   render(){
     const { options, name } = this.props
     const renderDropdown = options.map((option, i) =>
-      <option key={i}>{option.name || option}</option>
+      <option href={option.url} key={i}>{option.name || option}</option>
     )
     return(
       <div>
