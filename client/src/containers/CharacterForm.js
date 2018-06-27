@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import DropdownMenu from './DropdownMenu';
+import DropdownMenu from '../components/DropdownMenu';
 import { fetchRaces } from '../actions/CharacterBuilderActions';
 
 
@@ -22,9 +22,9 @@ class CharacterForm extends Component{
   }
 
 
-  // componentDidMount() {
-  //   this.props.onFetchRaces();
-  // }
+  componentDidMount() {
+    this.props.onFetchRaces();
+  }
 
   handleOnChange = (event) => {
     console.log("[CharacterForm] ", event.target.value)
@@ -52,4 +52,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default CharacterForm
+export default connect(null, mapDispatchToProps)(CharacterForm)
