@@ -2,7 +2,13 @@ export default (state={
   race: '',
   class: '',
   subrace: '',
-  skills: []
+  speed: '',
+  ability_bonuses: [],
+  size: '',
+  skills: [],
+  languages: [],
+  traits: [],
+  
   }, action) => {
   switch (action.type) {
     case 'SELECT_RACE':
