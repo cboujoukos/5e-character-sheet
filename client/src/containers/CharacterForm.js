@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import DropdownMenu from '../components/DropdownMenu';
 import BasicOptions from '../components/BasicOptions';
+import BackgroundSelector from '../components/BackgroundSelector';
 import { fetchRaces, fetchClasses, fetchSubraces } from '../actions/CharacterBuilderActions';
 
 
@@ -10,15 +11,18 @@ import { fetchRaces, fetchClasses, fetchSubraces } from '../actions/CharacterBui
   const subraces = ['Hill Dwarf', 'Mountain Dwarf']
   const classes = ['Barbarian', 'Bard','Cleric']
   const backgrounds = ['Acolyte', 'Soldier', 'Urchin']
+  const testSkills = ["Acrobatics", "Athletics", "Arcana"]
+  const testLanguages = ["Common", "Dwarvish", "Elvish"]
 
 class CharacterForm extends Component{
-  constructor(props){
-    super(props);
+  constructor(){
+    super();
     this.state = {
       race: "Dwarf",
       subrace: "Hill Dwarf",
       class: "Barbarian",
-      background: "Acolyte"
+      background: "Acolyte",
+      page: 1
     }
 
   }
@@ -46,23 +50,24 @@ class CharacterForm extends Component{
 //     // debugger
 //   }
 
+  handleOnNext = () => {
+    this.setState(Object.assign({},this.state, {page: this.state.page++}))
+  }
+
   render(){
-
-    return(
-      <div className="characterForm">
-        <BasicOptions  />
-
-        {/*<form>
-          <DropdownMenu options={this.props.raceList} onChange={event => this.handleRaceChange(event)} name="race" />
-          <DropdownMenu options={subraces} onChange={event => this.handleOnChange(event)} name="subrace" />
-          <DropdownMenu options={this.props.classList} onChange={event => this.handleOnChange(event)} name="class" />
-          <DropdownMenu options={backgrounds} onChange={event => this.handleOnChange(event)} name="background" />
-          <br />
-          <Button>Next</Button>
-        </form>*/}
-
-      </div>
-    )
+    if (this.state.page === 1){
+      return(
+        <div className="characterForm">
+          <BasicOptions onNext={() => this.handleOnNext()} />
+        </div>
+      )
+    } else if (this.state.page === 2) {
+      return(
+        <div className="characterForm">
+          <BackgroundSelector />
+        </div>
+      )
+    }
   }
 }
 

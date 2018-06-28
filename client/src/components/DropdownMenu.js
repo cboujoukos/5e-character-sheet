@@ -13,15 +13,15 @@ export default class DropdownMenu extends Component{
   }
 
 
-  handleOnChange = (event) => {
-    console.log(event.target.value)
-    this.setState({value: event.target.value})
-  }
+  // handleOnChange = (event) => {
+  //   console.log(event.target.value)
+  //   this.setState({value: event.target.value})
+  // }
 
   render(){
     const { options, name } = this.props
     const renderDropdown = options.map((option, i) =>
-      <option href={option.url} key={i}>{option.name || option}</option>
+      <option data-url={option.url} key={i}>{option.name || option}</option>
     )
     return(
       <div>
@@ -33,3 +33,5 @@ export default class DropdownMenu extends Component{
     )
   }
 }
+
+// event.target.selectedIndex

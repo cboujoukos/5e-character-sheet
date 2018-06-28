@@ -12,11 +12,12 @@ class BasicOptions extends Component{
   componentWillMount() {
     this.props.onFetchRaces();
     this.props.onFetchClasses();
+    this.props.onFetchSubraces({name: 'Dwarf', url: "http://www.dnd5eapi.co/api/races/1"})
   }
 
   componentDidMount() {
     // debugger
-    this.props.onFetchSubraces({name: 'Dwarf', url: "http://www.dnd5eapi.co/api/races/1"})
+    // this.props.onFetchSubraces({name: 'Dwarf', url: "http://www.dnd5eapi.co/api/races/1"})
   }
 
   handleOnChange = (event) => {
@@ -28,28 +29,29 @@ class BasicOptions extends Component{
   handleRaceChange = (event) => {
     this.setState({[event.target.name]: event.target.value});
     console.dir(event.target.value)
-    // debugger
+    this.props.onFetchSubraces({name: event.target.value, url: `http://www.dnd5eapi.co/api/races/${event.target.selectedIndex+1}`})
   }
 
   render(){
     return(
       <form>
         <DropdownMenu options={this.props.raceList} onChange={event => this.handleRaceChange(event)} name="race" />
-        <DropdownMenu options={subraces} onChange={event => this.handleOnChange(event)} name="subrace" />
+        { this.props.subraceList.length > 0 ? <DropdownMenu options={this.props.subraceList} onChange={event => this.handleOnChange(event)} name="subrace" /> : null }
+
         <DropdownMenu options={this.props.classList} onChange={event => this.handleOnChange(event)} name="class" />
         <DropdownMenu options={backgrounds} onChange={event => this.handleOnChange(event)} name="background" />
         <br />
-        <Button>Next</Button>
+        <Button onClick={this.props.onNext}>Next</Button>
       </form>
     )
   }
 }
 
-const mapStateToProps = state => {
-
+const mapStateToProps = (state) => {
   return {
     raceList: state.characterBuilder.races,
-    classList: state.characterBuilder.classes
+    classList: state.characterBuilder.classes,
+    subraceList: state.characterBuilder.subraces
   }
 }
 

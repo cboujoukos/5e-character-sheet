@@ -48,3 +48,37 @@ export function fetchSubraces(race){
     .then(subraces => dispatch({type: 'FETCH_SUBRACES', payload: subraces}))
   }
 }
+
+export function fetchSkills(){
+  const baseURL = 'http://www.dnd5eapi.co/api/'
+
+  return (dispatch) => {
+    dispatch({type: 'LOADING'});
+    return fetch(baseURL + 'skills')
+    .then(rsp => {
+      console.log('fetched');
+      return rsp.json()
+    })
+    .then(rspJSON => {
+      return rspJSON.results
+    })
+    .then(skills => dispatch({type: 'FETCH_SKILLS', payload: skills}))
+  }
+}
+
+export function fetchLanguages(){
+  const baseURL = 'http://www.dnd5eapi.co/api/'
+
+  return (dispatch) => {
+    dispatch({type: 'LOADING'});
+    return fetch(baseURL + 'languages')
+    .then(rsp => {
+      console.log('fetched');
+      return rsp.json()
+    })
+    .then(rspJSON => {
+      return rspJSON.results
+    })
+    .then(languages => dispatch({type: 'FETCH_LANGUAGES', payload: languages}))
+  }
+}
