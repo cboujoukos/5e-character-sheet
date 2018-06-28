@@ -31,7 +31,7 @@ class BackgroundSelector extends React.Component {
 
 You might also have ties to a specific temple dedicated to your chosen deity or pantheon, and you have a residence there. This could be the temple where you used to serve, or a temple where you have found a new home. While near your temple, you can call upon the priests for assistance, provided the assistance you ask for is not hazardous and you remain in good standing with your temple." />
           </fieldset>
-          <Button>Next</Button>
+          <Button>Previous</Button><Button>Next</Button>
         </form>
       </div>
     )

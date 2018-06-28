@@ -50,15 +50,19 @@ class CharacterForm extends Component{
 //     // debugger
 //   }
 
-  handleOnNext = () => {
-    this.setState(Object.assign({},this.state, {page: this.state.page++}))
+  handleOnNext = (event) => {
+    event.preventDefault();
+    alert('click');
+    this.setState({
+      page: this.state.page + 1
+    })
   }
 
   render(){
     if (this.state.page === 1){
       return(
         <div className="characterForm">
-          <BasicOptions onNext={() => this.handleOnNext()} />
+          <BasicOptions onNext={(event) => this.handleOnNext(event)} />
         </div>
       )
     } else if (this.state.page === 2) {
@@ -88,4 +92,10 @@ class CharacterForm extends Component{
 // }
 //
 // export default connect(mapStateToProps, mapDispatchToProps)(CharacterForm)
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     onSelectRace: (race) => dispatch(selectRace(race))
+//   }
+// }
 export default CharacterForm

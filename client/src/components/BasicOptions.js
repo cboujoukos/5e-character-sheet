@@ -3,6 +3,7 @@ import DropdownMenu from './DropdownMenu';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { fetchRaces, fetchClasses, fetchSubraces } from '../actions/CharacterBuilderActions';
+import { selectRace, selectClass } from '../actions/CharacterActions';
 
 const subraces = ['Hill Dwarf', 'Mountain Dwarf']
 const backgrounds = ['Acolyte', 'Soldier', 'Urchin']
@@ -23,18 +24,22 @@ class BasicOptions extends Component{
   handleOnChange = (event) => {
     console.log("[CharacterForm] ", event.target.value)
     this.setState({[event.target.name]: event.target.value})
+    if (event.target.name === "class") {
+      this.props.onSelectClass(event.target.value)
+    }
   }
 
 // How do I pull out the url or the actual race object to pass to onFetchSubraces???
   handleRaceChange = (event) => {
     this.setState({[event.target.name]: event.target.value});
     console.dir(event.target.value)
-    this.props.onFetchSubraces({name: event.target.value, url: `http://www.dnd5eapi.co/api/races/${event.target.selectedIndex+1}`})
+    this.props.onFetchSubraces({name: event.target.value, url: `http://www.dnd5eapi.co/api/races/${event.target.selectedIndex+1}`});
+    this.props.onSelectRace(event.target.value)
   }
 
   render(){
     return(
-      <form>
+      <div>
         <DropdownMenu options={this.props.raceList} onChange={event => this.handleRaceChange(event)} name="race" />
         { this.props.subraceList.length > 0 ? <DropdownMenu options={this.props.subraceList} onChange={event => this.handleOnChange(event)} name="subrace" /> : null }
 
@@ -42,7 +47,7 @@ class BasicOptions extends Component{
         <DropdownMenu options={backgrounds} onChange={event => this.handleOnChange(event)} name="background" />
         <br />
         <Button onClick={this.props.onNext}>Next</Button>
-      </form>
+      </div>
     )
   }
 }
@@ -59,7 +64,9 @@ const mapDispatchToProps = dispatch => {
   return {
     onFetchRaces: () => dispatch(fetchRaces()),
     onFetchClasses: () => dispatch(fetchClasses()),
-    onFetchSubraces: (race) => dispatch(fetchSubraces(race))
+    onFetchSubraces: (race) => dispatch(fetchSubraces(race)),
+    onSelectRace: (race) => dispatch(selectRace(race)),
+    onSelectClass: (klass) => dispatch(selectClass(klass))
   }
 }
 

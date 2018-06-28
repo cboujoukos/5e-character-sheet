@@ -5,7 +5,12 @@ export default (state={
   subraces: [],
   backgrounds: [],
   skills: [],
-  languages: []
+  languages: [],
+  character: {
+    race: '',
+    class: '',
+    subrace: ''
+    }
   }, action) => {
   switch (action.type) {
     case 'LOADING':
@@ -20,6 +25,7 @@ export default (state={
       return Object.assign({}, state, {loading: false, skills: action.payload});
     case 'FETCH_LANGUAGES':
       return Object.assign({}, state, {loading: false, languages: action.payload});
+  
     default:
       return state;
   }
